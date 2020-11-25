@@ -4,16 +4,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import Link from '@material-ui/core/Link';
-// import Button from '@material-ui/core/Button';
+// import Link from '@material-ui/core/Link';
+import { Link } from "react-router-dom";
 import LOGO from './images/logo.png';
 import SELLBTN from './images/sellBtn.PNG';
-import SimpleDialogDemo from './dialogbox'
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        // zIndex: 5,
     },
     location: {
         margin: '10px',
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         color: 'rgb(0,51,25)',
         marginLeft: 10,
-        width: '25%',
+        width: '30%',
     },
     search: {
         margin: '10px',
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         color: 'rgb(0,51,25)',
         marginLeft: 10,
-        width: '40%',
+        width: '43%',
     },
     searchIconForLocation: {
         padding: theme.spacing(0, 2),
@@ -44,9 +43,6 @@ const useStyles = makeStyles((theme) => ({
     },
     searchIconForSearch: {
         padding: theme.spacing(0, 2),
-        // backgroundColor : 'darkgreen',
-        // color : 'white',
-        // float : 'right',
         height: '100%',
         position: 'absolute',
         pointerEvents: 'none',
@@ -62,31 +58,36 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1, 1, 1, 0),
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
+        // width: '100%',
+        // [theme.breakpoints.up('sm')]: {
+        //     width: '12ch',
+        //     '&:focus': {
+        //         width: '20ch',
+        //     },
+        // },
     },
     loginLink :{
         margin: '10px',
         color: 'rgb(0,51,25)',
-        fontSize : '20px',
+        fontSize : '17PX',
         fontWeight:'bold',
-        textDecoration:'underline',
-
     },
     btn : {
         cursor :'pointer',
-
-        // float: 'right',
+        position: 'absolute',
+        right: '10px',
+        top: '5px',
     }
 }));
 
-export default function SearchAppBar() {
+export default function Navbar(props) {
     const classes = useStyles();
+
+    // console.log(props.item)
+    let getData = JSON.parse(localStorage.getItem("CurrUser"))
+    console.log(getData)
+
+
 
     return (
         <div className={classes.root}>
@@ -104,6 +105,7 @@ export default function SearchAppBar() {
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
+                            endAdornment={<LocationOnIcon/>}
                         />
                     </div>
                     <div className={classes.search}>
@@ -119,24 +121,13 @@ export default function SearchAppBar() {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
-                    <Link
-                        component="button"
-                        variant="body2"
-                        className = {classes.loginLink}
-                        onClick={() => {
-                            console.info("I'm a Login Button.");
-                        }}
-                    >
-                        LOGIN
+
+                    <Link to = "/login" className={classes.loginLink} >LOGIN</Link>
+
+                    <Link  to = {getData === null ?  "/login" : "/sellpage"} className={classes.btn}>
+                        <img src={SELLBTN} width='100' />
                     </Link>
-                    
-                    <span 
-                    className={classes.btn}
-                     onClick={() => {
-                        console.info("I'm a Sell Button.");
-                    }}>
-                    <img src={SELLBTN} width='100' />
-                    </span>
+
                 </Toolbar>
             </AppBar>
         </div>

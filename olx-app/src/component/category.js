@@ -9,20 +9,19 @@ const useStyles = makeStyles((theme) => ({
     marginTop:2,
   },
   paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
+    padding: theme.spacing(1),
+    borderRadius : 0,
   },
 }));
 
-export default function CenteredGrid() {
+export default function CategoryList() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>xs=12</Paper>
+          <Paper className={classes.paper}>ALL CATEGORIES</Paper>
         </Grid>
       </Grid>
     </div>
